@@ -1,0 +1,13 @@
+{% if latest_title_list %}
+    <ul>
+    {% for testcase in latest_title_list %}
+      <li><a href="{% url 'diplom:detail' testcase.id %}">{{ testcase.title }} </a></li>
+      {{testcase.steps}}
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No test cases are available.</p>
+{% endif %}
+<!--
+dfsf
+-->

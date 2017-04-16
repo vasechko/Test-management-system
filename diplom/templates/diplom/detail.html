@@ -1,0 +1,30 @@
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+  </head>
+  <body>
+    <form action="{% url 'diplom:edit' testcase.id %}" method="post">
+    {% csrf_token %}
+    <label for="title">Title		<span class="form-required">*</span></label>
+    <br>
+    <input name="title" class=" " id="title" type="text" maxlength="250" value="{{testcase.title}}">
+    <br>
+    <label>Steps 		<span class="form-required">*</span></label>
+    <br>
+    <textarea name="custom_preconds" class="custom form-control form-control-full  processed textarea-with-grippie" id="custom_preconds" placeholder="" rows="3"></textarea>
+    <input type="submit" class="btn btn-lg btn-default" value="Save" />
+
+    </form>
+    {% comment "Optional note" %}
+    <!-- TODO: add UI for steps and expected_result with Vika -->
+    {% endcomment %}
+
+    <!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+  </body>
+</html>
