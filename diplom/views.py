@@ -31,3 +31,7 @@ def edit(request, tc_id):
         # with POST data. This prevents data from being posted twice if a
         # user hits the Back button.
     return HttpResponseRedirect(reverse('diplom:results', args=(tc.id,)))
+
+
+def list_projects(request):
+    return HttpResponse(request.user.username)
