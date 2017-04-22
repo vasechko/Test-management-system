@@ -1,0 +1,20 @@
+{% extends "diplom/base.html" %}
+{% load humanize %}
+
+{% block content %}
+
+    <h1>{{ test_projects.count}} test projects </h1>
+    <h2>Open project</h2>
+    {% for test_project in test_projects %}
+        {% if test_project.status.name == "Open" %}
+           <h4><a href="{% url 'diplom:list_testsuits' test_project.id %}"> {{test_project.name}}</a></h4>
+        {% endif %}
+    {% endfor%}
+    <h2>Completed project</h2>
+    {% for test_project in test_projects %}
+        {% if test_project.status.name == "Closed" %}
+    <h4><a href="{% url 'diplom:list_testsuits' test_project.id %}"> {{test_project.name}}</a></h4>
+
+        {% endif %}
+    {% endfor %}
+{% endblock %}

@@ -3,6 +3,7 @@ from django.template import loader
 from django.http import HttpResponse, HttpResponseRedirect
 from django.urls import reverse
 from django.views import generic
+from .models import *
 
 from .models import TestCase
 
@@ -34,4 +35,19 @@ def edit(request, tc_id):
 
 
 def list_projects(request):
-    return HttpResponse(request.user.username)
+    test_projects = TestProject.objects.all()
+    context = {
+        'test_projects':test_projects,
+    }
+    return render(request,"diplom/home.html",context)
+
+def list_testsuits(request,tp_id):
+    test_suites = TestSuit.objects.filter(project=tp_id)
+    context = {
+        'test_suites':test_suites,
+    }
+    return render(request,"diplom/test_suite/list.html",context)
+
+
+
+
