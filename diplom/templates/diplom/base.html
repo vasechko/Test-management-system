@@ -19,9 +19,9 @@
             <img src="{% static 'img/logo.png' %}" alt="TMS" class="logo"/>
             <div class="welcome">
                 {% if request.user.is_authenticated %}
-                    <p>Hello {{request.user.username|title }},you last logged in at  {{request.user.last_login}}</p>
+                    <p>Hello {{request.user.username|title }},you last logged in at  {{request.user.last_login}}. <a href="{% url 'diplom:logout'%}">Logout</a></p>
                 {% else %}
-                    <p>Welcome guest</p>
+                    <p>Welcome guest! <a href="{% url 'diplom:login'%}">Login</a></p>
                 {% endif %}
             </div>
         </header>
