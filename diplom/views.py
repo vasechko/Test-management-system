@@ -5,6 +5,7 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.urls import reverse
 from django.views import generic
 from .models import *
+from .forms import *
 
 from .models import TestCase
 
@@ -20,6 +21,7 @@ class DetailView(generic.DetailView):
     model = TestCase
     template_name = 'diplom/detail.html'
 
+
 class ResultsView(generic.DetailView):
         model = TestCase
         template_name = 'diplom/results.html'
@@ -27,6 +29,7 @@ class ResultsView(generic.DetailView):
 @login_required
 def edit(request, tc_id):
     tc = get_object_or_404(TestCase, pk=tc_id)
+
     #tc = testcase.objects.get(pk=request.POST['title'])
     tc.title = request.POST['title']
     tc.save()
@@ -42,6 +45,7 @@ def list_projects(request):
         'test_projects':test_projects,
     }
     return render(request,"diplom/home.html",context)
+
 @login_required
 def list_testsuits(request,tp_id):
     test_suites = TestSuit.objects.filter(project=tp_id)
@@ -49,6 +53,16 @@ def list_testsuits(request,tp_id):
         'test_suites':test_suites,
     }
     return render(request,"diplom/test_suite/list.html",context)
+
+@login_required
+def edit1(request,tc_id):
+    tc = get_object_or_404(TestCase,pk=tc_id)
+    form = TestCaseForm
+    context = {
+        'tc' : tc,
+        'form':form,
+    }
+    return  render(request,"diplom/testcase/edit.html", context)
 
 
 

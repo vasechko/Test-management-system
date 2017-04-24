@@ -21,5 +21,6 @@ urlpatterns = [
 
     url(r'^home/(?P<tp_id>[0-9]+)/$', views.list_testsuits, name='list_testsuits'),
     url(r'^home/(?P<tp_id>[0-9]+)/testcase/$',login_required( views.IndexView.as_view()), name='index2'),
+    url(r'^home/testcase/(?P<tc_id>[0-9]+)/edit/$', views.edit1, name='edit1'),
 
 ]
