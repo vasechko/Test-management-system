@@ -16,7 +16,7 @@
 <body>
     <div class="container">
         <header>
-            <img src="{% static 'img/logo.png' %}" alt="TMS" class="logo"/>
+            <a href="{% url 'diplom:projects' %}"> <img src="{% static 'img/logo.png' %}" alt="TMS" class="logo"/></a>
             <div class="welcome">
                 {% if request.user.is_authenticated %}
                     <p>Hello {{request.user.username|title }},you last logged in at  {{request.user.last_login}}. <a href="{% url 'diplom:logout'%}">Logout</a></p>
@@ -25,7 +25,7 @@
                 {% endif %}
             </div>
         </header>
-
+   {% block nav %}{% endblock %}
         <main>
             {% block content %}{% endblock %}
         </main>

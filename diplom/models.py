@@ -1,4 +1,5 @@
 from django.db import models
+from django.urls import reverse
 
 class StatusTestCase (models.Model):
     name = models.CharField(max_length=90)
@@ -61,14 +62,21 @@ class TestCase(models.Model):
     def __str__(self):
         return self.title
 
+    def get_absolute_url(self):
+        return reverse('diplom:tc-list', kwargs={'tp_id':self.testSuit.project.pk, 'ts_id':self.testSuit.pk})
+
 
 class TestRun(models.Model):
      testProject = models.ForeignKey(TestProject)
      name = models.CharField(max_length=90)
      description = models.TextField()
+     testcases = models.ManyToManyField(TestCase)
 
      def __str__(self):
         return self.name
+
+     def get_absolute_url(self):
+        return reverse('diplom:list-testruns', kwargs={'tp_id':self.testProject.pk})
 
 
 class TestRunResult(models.Model):
@@ -80,7 +88,7 @@ class TestRunResult(models.Model):
    trrDATE = models.DateTimeField()
 
    def __str__(self):
-        return self.trrDATE
+        return self.comment
 
 
 

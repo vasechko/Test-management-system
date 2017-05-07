@@ -1,0 +1,19 @@
+{% extends "diplom/base-nav.html" %}
+{% load humanize %}
+{% block ts_url %} {% url 'diplom:list_testsuits' tp_id %} {% endblock %}
+{% block tr_url %}{% url 'diplom:list-testruns'  tp_id %} {% endblock %}
+{% block tab2-active %}active {% endblock %}
+{% block content %}
+
+
+{% if test_cases %}
+    <ul>
+    {% for testcase in test_cases %}
+      <li><a href="">{{ testcase.title }} </a></li>
+
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No test cases are available.</p>
+{% endif %}
+{% endblock %}

@@ -8,6 +8,9 @@
     {% for test_project in test_projects %}
         {% if test_project.status.name == "Open" %}
            <h4><a href="{% url 'diplom:list_testsuits' test_project.id %}"> {{test_project.name}}</a></h4>
+            <a class="link" href="{% url 'diplom:list-testruns' test_project.id%}">Test Runs</a> |
+            <a href="{% url 'diplom:list_testsuits' test_project.id %}"> Test Suites</a> |
+            <hr>
         {% endif %}
     {% endfor%}
     <h2>Completed project</h2>

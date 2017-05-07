@@ -1,0 +1,12 @@
+{% extends "diplom/base.html" %}
+{% load humanize %}
+        {% block nav %}
+<ul class="nav nav-tabs">
+    <li class="{% block tab1-active %} {% endblock %}">
+        <a href=" {% block ts_url %} {% endblock %} ">Test Suites</a>
+    </li>
+    <li class="{% block tab2-active %} {% endblock %}">
+        <a href=" {% block tr_url %} {% endblock %} ">Test Runs</a>
+    </li>
+</ul>
+{% endblock %}

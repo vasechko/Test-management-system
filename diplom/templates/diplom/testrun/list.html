@@ -1,0 +1,17 @@
+{% extends "diplom/base-nav.html" %}
+{% load humanize %}
+
+{% block ts_url %} {% url 'diplom:list_testsuits' tp_id %} {% endblock %}
+{% block tr_url %}{% url 'diplom:list-testruns'  tp_id %} {% endblock %}
+{% block tab2-active %}active {% endblock %}
+
+{% block content %}
+<a class="btn btn-lg btn-default" href ="{% url 'diplom:tr-add' tp_id %}">Add Test Run</a>
+
+{% for test_run in test_runs %}
+
+           <h4><a href="{% url 'diplom:tr-detail-list' tp_id test_run.id %}"> {{test_run.name}}</a></h4>
+{% endfor%}
+{% endblock %}
+
+

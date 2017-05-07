@@ -1,11 +1,18 @@
-{% extends "diplom/base.html" %}
+{% extends "diplom/base-nav.html" %}
 {% load humanize %}
 
-{% block content %}
+ {% block ts_url %} {% url 'diplom:list_testsuits' tp_id %} {% endblock %}
+ {% block tr_url %}{% url 'diplom:list-testruns'  tp_id %} {% endblock %}
+{% block tab1-active %}active {% endblock %}
 
+{% block content %}
+        <br>
+        <form id="searchform" action="{% url 'diplom:tc-search' tp_id %}" method="get" accept-charset="utf-8">
+            <input class="searchfield" id="searchbox" name="q" type="text" placeholder="Search test cases...">
+        </form>
 {% for test_suite in test_suites %}
 
-           <h4><a href="{% url 'diplom:index2' test_suite.id %}"> {{test_suite.name}}</a></h4>
+           <h4><a href="{% url 'diplom:tc-list' test_suite.project.id  test_suite.id %}"> {{test_suite.name}}</a></h4>
 {% endfor%}
 {% endblock %}
 

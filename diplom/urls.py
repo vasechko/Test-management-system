@@ -11,16 +11,24 @@ urlpatterns = [
     # ex: /diplom/
     url(r'^$', views.IndexView.as_view(), name='index'),
     # ex: /diplom/5/
-    url(r'^(?P<pk>[0-9])/$', login_required(views.DetailView.as_view()), name='detail'),
+    #url(r'^(?P<pk>[0-9])/$', login_required(views.DetailView.as_view()), name='detail'),
     # ex: /polls/5/results/
     url(r'^(?P<pk>[0-9]+)/results/$',login_required( views.ResultsView.as_view()), name='results'),
-    # ex: /polls/5/vote/
-    url(r'^(?P<tc_id>[0-9]+)/edit/$', views.edit, name='edit'),
+    # ex: /polls/5/vote
     # ex: /diplom/home/
     url(r'^home/$', views.list_projects, name='projects'),
 
     url(r'^home/(?P<tp_id>[0-9]+)/$', views.list_testsuits, name='list_testsuits'),
-    url(r'^home/(?P<tp_id>[0-9]+)/testcase/$',login_required( views.IndexView.as_view()), name='index2'),
-    url(r'^home/testcase/(?P<tc_id>[0-9]+)/edit/$', views.edit1, name='edit1'),
+    url(r'^home/(?P<tp_id>[0-9]+)/(?P<ts_id>[0-9]+)/testcase/$',login_required( views.TcList.as_view()), name='tc-list'),
+    url(r'^home/(?P<tp_id>[0-9]+)/(?P<ts_id>[0-9]+)/detail/(?P<pk>[0-9]+)/$', login_required(views.TcDetail.as_view()), name='tc-detail'),
+
+    url(r'^home/(?P<tp_id>[0-9]+)/(?P<ts_id>[0-9]+)/testcase/add/$',login_required( views.TcCreate.as_view()), name='tc-add'),
+    url(r'^home/(?P<tp_id>[0-9]+)/(?P<ts_id>[0-9]+)/update/(?P<pk>[0-9]+)/$', login_required(views.TcUpdate.as_view()), name='tc-update'),
+    url(r'^home/(?P<tp_id>[0-9]+)/(?P<ts_id>[0-9]+)/delete/(?P<pk>[0-9]+)/$', login_required(views.TcDelete.as_view()), name='tc-delete'),
+    url(r'^home/(?P<tp_id>[0-9]+)/testcase/search/$',login_required( views.TcListSearch.as_view()), name='tc-search'),
+
+    url(r'^home/(?P<tp_id>[0-9]+)/testruns/$', views.list_testruns, name='list-testruns'),
+    url(r'^home/(?P<tp_id>[0-9]+)/testrun/add/$',login_required( views.TrCreate.as_view()), name='tr-add'),
+    url(r'^home/(?P<tp_id>[0-9]+)/(?P<tr_id>[0-9]+)/testrun/$',login_required( views.TrDetailList.as_view()), name='tr-detail-list'),
 
 ]

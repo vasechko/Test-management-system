@@ -1,0 +1,18 @@
+{% extends "diplom/base-nav.html" %}
+{% load humanize %}
+
+{% block ts_url %} {% url 'diplom:list_testsuits' project %} {% endblock %}
+{% block tr_url %}{% url 'diplom:list-testruns'  project %} {% endblock %}
+{% block tab1-active %}active {% endblock %}
+{% block content %}
+
+       <h1>Title: {{ object.title}}</h1>
+       <a class="btn btn-lg btn-default" href ="{% url 'diplom:tc-update' project testSuit test_case %}">Edit</a>
+       <a class="btn btn-lg btn-default" href ="{% url 'diplom:tc-delete' project testSuit test_case %}">Delete</a>
+       <p>Priority: {{object.priority}}</p>
+       <p>Estimate: {{object.estimate}}</p>
+       <p>Precondition: {{object.precondition}}</p>
+       <p>Steps: {{object.steps}}</p>
+       <p>Expected result: {{object.expected_result}}</p>
+
+{% endblock %}

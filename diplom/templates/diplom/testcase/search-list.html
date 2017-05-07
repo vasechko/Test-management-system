@@ -1,11 +1,9 @@
 {% extends "diplom/base-nav.html" %}
 {% load humanize %}
-
-{% block ts_url %} {% url 'diplom:list_testsuits' project.id %} {% endblock %}
-{% block tr_url %}{% url 'diplom:list-testruns'  project.id %} {% endblock %}
+{% block ts_url %} {% url 'diplom:list_testsuits' tp_id %} {% endblock %}
+{% block tr_url %}{% url 'diplom:list-testruns'  tp_id %} {% endblock %}
 {% block tab1-active %}active {% endblock %}
 {% block content %}
-<a class="btn btn-lg btn-default" href ="{% url 'diplom:tc-add' project.id testSuit.id %}">Add Test Case</a>
 
 
 {% if test_cases %}
