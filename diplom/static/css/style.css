@@ -181,7 +181,7 @@ select,
 textarea {
     border: 1px solid #ccc;
     padding: 5px;
-    display: block;
+   // display: block;
     width: 300px;
     box-sizing: border-box;
     margin-bottom: 10px;

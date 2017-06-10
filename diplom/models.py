@@ -1,7 +1,8 @@
 from django.db import models
 from django.urls import reverse
+from django.contrib.auth.models import User
 
-class StatusTestCase (models.Model):
+class StatusTestRun (models.Model):
     name = models.CharField(max_length=90)
 
     def __str__(self):
@@ -12,15 +13,6 @@ class ProjectStatus (models.Model):
 
     def __str__(self):
         return self.name
-
-
-class User (models.Model):
-    full_name = models.CharField(max_length=90)
-    email_address = models.EmailField(max_length=254)
-    password = models.CharField(max_length=90)
-
-    def __str__(self):
-        return self.full_name
 
 
 class Priority(models.Model):
@@ -34,11 +26,14 @@ class TestProject(models.Model):
     status = models.ForeignKey(ProjectStatus)
     user = models.ForeignKey(User)
     name = models.CharField(max_length=90)
-    creation_date = models.DateTimeField()
-    modification_date = models.DateTimeField()
+    creation_date = models.DateTimeField(auto_now_add=True)
+    modification_date = models.DateTimeField(auto_now=True)
 
     def __str__(self):
         return self.name
+
+    def get_absolute_url(self):
+        return reverse('diplom:projects')
 
 
 class TestSuit (models.Model):
@@ -49,6 +44,8 @@ class TestSuit (models.Model):
     def __str__(self):
         return self.name
 
+    def get_absolute_url(self):
+        return reverse('diplom:list_testsuits', kwargs={'tp_id':self.project.pk})#формиров ссылки при изменении
 
 class TestCase(models.Model):
     testSuit = models.ForeignKey(TestSuit)
@@ -69,8 +66,8 @@ class TestCase(models.Model):
 class TestRun(models.Model):
      testProject = models.ForeignKey(TestProject)
      name = models.CharField(max_length=90)
-     description = models.TextField()
-     testcases = models.ManyToManyField(TestCase)
+     description = models.TextField(blank = True)
+     testcases = models.ManyToManyField(TestCase, through='TestRunTestCase', through_fields=('testRun', 'testCase'),)
 
      def __str__(self):
         return self.name
@@ -79,29 +76,27 @@ class TestRun(models.Model):
         return reverse('diplom:list-testruns', kwargs={'tp_id':self.testProject.pk})
 
 
+class TestRunTestCase(models.Model):
+    testRun = models.ForeignKey(TestRun, on_delete=models.CASCADE)# парам кот указыв все записи буд уд
+    testCase = models.ForeignKey(TestCase, on_delete=models.CASCADE)
+
+    class Meta:
+        auto_created = True#одновременн изм и Test R и TestCase
+
 class TestRunResult(models.Model):
-   testRun = models.ForeignKey(TestRun)
-   testCase = models.ForeignKey(TestCase)
+   testrunTestcase = models.OneToOneField(TestRunTestCase, on_delete=models.CASCADE, primary_key=True,)
    user = models.ForeignKey(User)
-   statusTestCase = models.ForeignKey(StatusTestCase)
-   comment = models.CharField(max_length=255)
-   trrDATE = models.DateTimeField()
+   status = models.ForeignKey(StatusTestRun)
+   comment = models.CharField(max_length=255,blank = True)
+   trrDate = models.DateTimeField()
+
+   def get_absolute_url(self):
+        return reverse('diplom:trr-detail', kwargs={'tp_id':self.testrunTestcase.testRun.testProject.pk,#записів ключи
+                       'tr_id':self.testrunTestcase.testRun.pk,
+                       'pk':self.testrunTestcase.testCase.pk})
+
+   class Meta:
+        auto_created = True
 
    def __str__(self):
         return self.comment
-
-
-
-
-
-
-
-
-
-
-
-    #section = models.ForeignKey(Section, on_delete=models.CASCADE)
-
-#class Section(models.Model):
-#    name = models.CharField(max_length=100)
-#    description = models.TextField()

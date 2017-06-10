@@ -7,10 +7,10 @@
 
 
 {% if test_cases %}
+<h3>Seaarch result(s) for "{{search_word}}":</h3>
     <ul>
     {% for testcase in test_cases %}
-      <li><a href="{% url 'diplom:tc-detail' project.id testSuit.id  testcase.id %}">{{ testcase.title }} </a></li>
-      {{testcase.steps}}
+      <li><a href="{% url 'diplom:tc-detail' testcase.testSuit.project.id testcase.testSuit.id  testcase.id %}">{{ testcase.title }} </a></li>
     {% endfor %}
     </ul>
 {% else %}

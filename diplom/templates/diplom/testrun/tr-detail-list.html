@@ -1,19 +1,44 @@
 {% extends "diplom/base-nav.html" %}
 {% load humanize %}
+{% block project-name %}{{testRun.testProject.name}} > {{testRun.name}} {% endblock %}
 {% block ts_url %} {% url 'diplom:list_testsuits' tp_id %} {% endblock %}
 {% block tr_url %}{% url 'diplom:list-testruns'  tp_id %} {% endblock %}
 {% block tab2-active %}active {% endblock %}
 {% block content %}
 
 
-{% if test_cases %}
-    <ul>
-    {% for testcase in test_cases %}
-      <li><a href="">{{ testcase.title }} </a></li>
 
+
+   <table class="table table-hover">
+    <thead>
+      <tr>
+        <th>Test case</th>
+        <th>Priority</th>
+        <th>Test run status</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for tr_tc in testrun_testcase %}
+    <tr class=  {% if tr_tc.testrunresult %}
+                {% ifequal  tr_tc.testrunresult.status.name "Passed" %} "success"
+                {% else %} "danger"
+                {% endifequal %}
+      {% endif %}"active">
+        <td>
+      <a href="{% url 'diplom:trr-detail' tp_id tr_id tr_tc.testCase.id %}">{{ tr_tc.testCase.title }} </a>
+        </td>
+        <td>{{ tr_tc.testCase.priority }}</td>
+     </td>
+        <td>{% if tr_tc.testrunresult %}
+                {{tr_tc.testrunresult.status}}
+            {% else %}
+                Not run yet
+            {% endif %}
+        </td>
+     </tr>
     {% endfor %}
-    </ul>
-{% else %}
-    <p>No test cases are available.</p>
-{% endif %}
+
+
+    </tbody>
+  </table>
 {% endblock %}

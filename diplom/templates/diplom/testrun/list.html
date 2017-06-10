@@ -1,17 +1,32 @@
 {% extends "diplom/base-nav.html" %}
 {% load humanize %}
 
+{% block project-name %}{{project.name}}{% endblock %}
 {% block ts_url %} {% url 'diplom:list_testsuits' tp_id %} {% endblock %}
 {% block tr_url %}{% url 'diplom:list-testruns'  tp_id %} {% endblock %}
 {% block tab2-active %}active {% endblock %}
 
+
 {% block content %}
-<a class="btn btn-lg btn-default" href ="{% url 'diplom:tr-add' tp_id %}">Add Test Run</a>
 
-{% for test_run in test_runs %}
+ <div class="row">
+  <div class="col-sm-4"> <h4>Test Runs: </h4></div>
+  <div class="col-sm-8" style="text-align:right;">
+      {% if project.status.name == "Open" %}
+<a  class="btn btn-md  btn-primary" href ="{% url 'diplom:tr-add' tp_id %}">Add Test Run</a>
+    {% endif %}
+  </div>
+</div>
 
-           <h4><a href="{% url 'diplom:tr-detail-list' tp_id test_run.id %}"> {{test_run.name}}</a></h4>
+    <ol>
+    {% for test_run in test_runs %}
+
+       <li>
+           <h5><a href="{% url 'diplom:tr-detail-list' tp_id test_run.id %}"> {{test_run}}</a></h5>
+       </li>
+
 {% endfor%}
+     </ol>
 {% endblock %}
 
 

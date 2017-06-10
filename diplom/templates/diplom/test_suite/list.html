@@ -1,19 +1,35 @@
 {% extends "diplom/base-nav.html" %}
 {% load humanize %}
 
+ {% block project-name %}{{project.name}}{% endblock %} {% comment %} тут подставл название выбранного проекта{% endcomment %}
  {% block ts_url %} {% url 'diplom:list_testsuits' tp_id %} {% endblock %}
  {% block tr_url %}{% url 'diplom:list-testruns'  tp_id %} {% endblock %}
 {% block tab1-active %}active {% endblock %}
 
 {% block content %}
-        <br>
-        <form id="searchform" action="{% url 'diplom:tc-search' tp_id %}" method="get" accept-charset="utf-8">
-            <input class="searchfield" id="searchbox" name="q" type="text" placeholder="Search test cases...">
-        </form>
-{% for test_suite in test_suites %}
+<br>
+<div class="row">
+  <div class="col-sm-6"> <h4>Test Suites: </h4>
+      <ol>
+      {% for test_suite in test_suites %}
+           <li> <h5><a href="{% url 'diplom:tc-list' test_suite.project.id  test_suite.id %}"> {{test_suite}}</a></h5>
+           <div style="font-style:italic;font-size:xx-small">{{test_suite.description}}</div>
+           </li>
+      {% endfor%}
+      </ol>
+  </div>
+  <div class="col-sm-6" style="text-align:right;">
+      <div align="right"><form id="searchform" action="{% url 'diplom:tc-search' tp_id %}" method="get" accept-charset="utf-8">
+          <input class="searchfield" id="searchbox" name="q" type="text" placeholder="Search test cases...">
+          <input type="submit" value="search" class="searchButton" />
+      </form>
+         <div>
+         {% if project.status.name == "Open" %}
+            <a class="btn btn-md  btn-primary"  href ="{% url 'diplom:ts-add' project.id  %}">Add Test Suit</a>
+        {% endif %} </div>
+  </div>
+</div>
 
-           <h4><a href="{% url 'diplom:tc-list' test_suite.project.id  test_suite.id %}"> {{test_suite.name}}</a></h4>
-{% endfor%}
 {% endblock %}
 
 

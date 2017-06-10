@@ -4,9 +4,8 @@ from .models import *
 
 
 admin.site.register(TestCase)
-admin.site.register(StatusTestCase)
+admin.site.register(StatusTestRun)
 admin.site.register(ProjectStatus)
-admin.site.register(User)
 admin.site.register(Priority)
 admin.site.register(TestProject)
 admin.site.register(TestSuit)

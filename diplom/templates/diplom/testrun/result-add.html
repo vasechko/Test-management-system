@@ -1,13 +1,12 @@
 {% extends "diplom/base-nav.html" %}
 {% load humanize %}
 
-{% block project-name %}{{object.testSuit.project.name}} > {{object.testSuit.name}} > {{object.title}}{% endblock %}
 {% block ts_url %} {% url 'diplom:list_testsuits' tp_id %} {% endblock %}
 {% block tr_url %}{% url 'diplom:list-testruns'  tp_id %} {% endblock %}
-{% block tab1-active %}active {% endblock %}
+{% block tab2-active %}active {% endblock %}
 
 {% block content %}
-        <h1>Edit Test Case</h1>
+        <h1>Add Test Result</h1>
         <form method="post" action=".">
             {% csrf_token %}
         {{ form.as_p}}

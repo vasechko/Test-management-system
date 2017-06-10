@@ -2,12 +2,9 @@
 {% load humanize %}
 {% block project-name %} Projects{% endblock %}
 
-{% block ts_url %} {% url 'diplom:list_testsuits' tp_id %} {% endblock %}
-{% block tr_url %}{% url 'diplom:list-testruns'  tp_id %} {% endblock %}
-{% block tab2-active %}active {% endblock %}
-
+        
 {% block content %}
-        <h3>Add Test Run</h3>
+        <h3>Add Test Project</h3>
         <form method="post" action=".">
             {% csrf_token %}
         {{ form.as_p}}

@@ -1,0 +1,33 @@
+{% extends "diplom/base-nav.html" %}
+{% load humanize %}
+
+{% block project-name %}{{object.testSuit.project.name}} > {{testRun.name}} > {{object.title}}{% endblock %}
+{% block ts_url %} {% url 'diplom:list_testsuits' tp_id %} {% endblock %}
+{% block tr_url %}{% url 'diplom:list-testruns'  tp_id %} {% endblock %}
+{% block tab2-active %}active {% endblock %}
+{% block content %}
+
+
+
+       <h3>Title: {{ object.title}}</h3>
+
+       <p><strong>Priority: </strong>{{object.priority}}</p>
+       <p><strong>Estimate: </strong>{{object.estimate}}</p>
+       <p><strong>Precondition:</strong> <textarea readonly rows="4">{{object.precondition}}</textarea></p>
+       <p><strong>Steps: </strong><textarea readonly rows="7">{{object.steps}}</textarea></p>
+       <p><strong>Expected result: </strong><textarea readonly rows="5">{{object.expected_result}}</textarea></p>
+
+        {% if run_result %}
+            <hr>
+<div class="row">
+    <div class="col-sm-4" style="background-color:lavender;border: solid 1px black;">{{run_result.status}} by
+    <strong><br> {{run_result.user}}</strong>
+<br> on {{run_result.trrDate}}
+    </div>
+    <div class="col-sm-8" style="border: solid 1px black;"><br>Comment: {{run_result.comment}}<br><br></div>
+  </div>
+        {% elif  project.status.name == "Open"%}
+             <a class="btn btn-lg btn-default" href ="{% url 'diplom:trr-add' tp_id tr_id tc_id %}">Add result</a>
+        {% endif %}
+<br>
+{% endblock %}

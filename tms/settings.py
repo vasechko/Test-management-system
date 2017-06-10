@@ -38,7 +38,10 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'diplom',
-    'django.contrib.humanize'
+    'django.contrib.humanize',
+    'polls'
+
+
 ]
 
 MIDDLEWARE = [
@@ -76,10 +79,15 @@ WSGI_APPLICATION = 'tms.wsgi.application'
 # https://docs.djangoproject.com/en/1.10/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-    }
+     'default': {
+        'ENGINE':  'django.db.backends.postgresql_psycopg2',
+        'USER': 'postgres',
+        'NAME': 'TMS',
+        'PASSWORD': 'vika',
+        'HOST': 'localhost',
+        'PORT': '',
+    },
+
 }
 
 
@@ -124,3 +132,4 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'diplom', 'static'),
 )
+

@@ -1,20 +1,26 @@
 {% extends "diplom/base-nav.html" %}
 {% load humanize %}
 
+{% block project-name %}{{project.name}} > {{testSuit.name}} {% endblock %}
 {% block ts_url %} {% url 'diplom:list_testsuits' project.id %} {% endblock %}
 {% block tr_url %}{% url 'diplom:list-testruns'  project.id %} {% endblock %}
 {% block tab1-active %}active {% endblock %}
 {% block content %}
-<a class="btn btn-lg btn-default" href ="{% url 'diplom:tc-add' project.id testSuit.id %}">Add Test Case</a>
 
-
+<div class="row">
+<div class="col-sm-4"> <h4>Test cases: </h4></div>
+<div class="col-sm-8" style="text-align:right;">
+    {% if project.status.name == "Open" %}
+    <a class="btn btn-md  btn-primary" href ="{% url 'diplom:tc-add' project.id testSuit.id %}">Add Test Case</a>
+{% endif %}
+    </div>
+    </div>
 {% if test_cases %}
-    <ul>
+    <ol>
     {% for testcase in test_cases %}
-      <li><a href="{% url 'diplom:tc-detail' project.id testSuit.id  testcase.id %}">{{ testcase.title }} </a></li>
-      {{testcase.steps}}
+      <li><h5><a href="{% url 'diplom:tc-detail' project.id testSuit.id  testcase.id %}">{{ testcase.title }} </a></h5></li>
     {% endfor %}
-    </ul>
+    </ol>
 {% else %}
     <p>No test cases are available.</p>
 {% endif %}

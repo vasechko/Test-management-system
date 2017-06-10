@@ -1,0 +1,15 @@
+{% extends "diplom/base-nav.html" %}
+{% load humanize %}
+
+{% block project-name %}{{project.name}} {% endblock %}
+{% block ts_url %} {% url 'diplom:list_testsuits' project.id %} {% endblock %}
+{% block tr_url %}{% url 'diplom:list-testruns'  project.id %} {% endblock %}
+{% block tab1-active %}active {% endblock %}
+{% block content %}
+<form action="" method="post">
+    {% csrf_token %}
+    <p><br>Are you sure you want to close "{{ project }}"?</p>
+    <input type="submit" class="btn btn-xs  btn-danger" value="Confirm" />
+
+</form>
+  {% endblock %}

@@ -1,6 +1,15 @@
+{% extends "diplom/base-nav.html" %}
+{% load humanize %}
+
+{% block project-name %}{{object.testSuit.project.name}} > {{object.testSuit.name}} > {{object.title}}{% endblock %}
+{% block ts_url %} {% url 'diplom:list_testsuits' project %} {% endblock %}
+{% block tr_url %}{% url 'diplom:list-testruns'  project %} {% endblock %}
+{% block tab1-active %}active {% endblock %}
+{% block content %}
 <form action="" method="post">
     {% csrf_token %}
-    <p>Are you sure you want to delete "{{ object }}"?</p>
-    <input type="submit" value="Confirm" />
+    <p><br>Are you sure you want to delete "{{ object }}"?</p>
+    <input type="submit" class="btn btn-xs  btn-danger" value="Confirm" />
 
 </form>
+  {% endblock %}
